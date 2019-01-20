@@ -77,6 +77,7 @@ public class EmailService {
      */
     public boolean sendMail(SendEmailResource emailResource){
         Integer senderId = getUserId(emailResource.getSender());
+        if(senderId==null) return false;
 
         List<Integer> userIdList = getRecipients(emailResource.getRecipient());
         if(userIdList.size()==0) return false;
@@ -211,26 +212,15 @@ public class EmailService {
     }
 
     /**
-     * delete trash.
-     * @param emailResource
-     * @return
-     */
-    public boolean deleteTrash(UpdateEmailResource emailResource){
-        Integer userId = getUserId(emailResource.getEmail());
-        mailMapRepository.deleteByUserIdAndMailId(userId, emailResource.getMailId());
-
-        Long count = mailMapRepository.countByMailId(emailResource.getMailId());
-        if(count==0) mailRepository.deleteById(emailResource.getMailId());
-        return true;
-    }
-
-    /**
      * delete a Mail permanently.
      * @param emailResource
      * @return
      */
     public boolean deletePermanently(UpdateEmailResource emailResource){
         Integer userId = getUserId(emailResource.getEmail());
+        if(userId==null) return false;
+        MailMap mailMap = mailMapRepository.findByUserIdAndMailId(userId, emailResource.getMailId());
+        if(mailMap==null) return false;
         mailMapRepository.deleteByUserIdAndMailId(userId, emailResource.getMailId());
 
         Long count = mailMapRepository.countByMailId(emailResource.getMailId());

@@ -21,10 +21,6 @@ public class MailMap {
     @JoinColumn(name = "mailId", nullable = false, insertable = false, updatable = false)
     private Mail mail;
 
-//    @ManyToOne
-//    @JoinColumn(name = "userId", nullable = false, insertable = false, updatable = false)
-//    private User user;
-
     @Column(nullable=false, columnDefinition="boolean default false")
     private boolean isRead;
 
@@ -62,14 +58,6 @@ public class MailMap {
     public void setMail(Mail mail) {
         this.mail = mail;
     }
-
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
 
     public boolean isRead() {
         return isRead;

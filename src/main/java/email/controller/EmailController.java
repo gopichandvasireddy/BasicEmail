@@ -97,16 +97,6 @@ public class EmailController {
     }
 
     /**
-     * Permanently delete mails from trash.
-     * @return
-     */
-    @PostMapping(path = "/deletetrash")
-    public ResponseEntity<HttpStatus> deleteTrash(@Valid @RequestBody UpdateEmailResource emailResource){
-        if(emailService.deleteTrash(emailResource)) return new ResponseEntity<>(HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.valueOf(400));
-    }
-
-    /**
      * Permanently delete mails.
      * @return
      */
